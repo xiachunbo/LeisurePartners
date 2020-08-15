@@ -20,7 +20,7 @@ public class LaunchActivity extends Activity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                startActivity(new Intent(LaunchActivity.this, MainActivity.class));
+                startActivity(new Intent(LaunchActivity.this, HomeActivity.class));
                 LaunchActivity.this.finish();
             }
         }, time);

@@ -1,14 +1,12 @@
 package com.drops.activity;
 
 
-import android.os.Build;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.util.DisplayMetrics;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -47,13 +45,6 @@ public class MainActivity extends BaseSlidingFragmentActivity implements View.On
         initView();
         initFragment();//方法一，默认第一fragment
         initView(savedInstanceState);
-        if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.KITKAT) {
-
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);//透明状态栏
-
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);//透明底部导航栏
-
-        }
     }
 
     private void initView() {
@@ -86,7 +77,7 @@ public class MainActivity extends BaseSlidingFragmentActivity implements View.On
         //添加到数组
         mFragments = new Fragment[]{f_a,f_b,f_c,f_d};
         //开启事务
-        FragmentManager    fragmentManager = getSupportFragmentManager();
+        FragmentManager    fragmentManager = getFragmentManager();
         FragmentTransaction ft= fragmentManager.beginTransaction();
         //添加首页
         ft.add(R.id.content,f_a).commit();
@@ -99,7 +90,7 @@ public class MainActivity extends BaseSlidingFragmentActivity implements View.On
         if(mIndex==index){
             return;
         }
-        FragmentManager    fragmentManager = getSupportFragmentManager();
+        FragmentManager    fragmentManager = getFragmentManager();
         FragmentTransaction ft= fragmentManager.beginTransaction();
 
         //隐藏
@@ -138,7 +129,7 @@ public class MainActivity extends BaseSlidingFragmentActivity implements View.On
 
     ////方法二，默认第一fragment
     private void changeFragment(Fragment fm) {
-        FragmentManager supportFragmentManager = getSupportFragmentManager();
+        FragmentManager supportFragmentManager = getFragmentManager();
         FragmentTransaction transaction = supportFragmentManager.beginTransaction();
         transaction.replace(R.id.content, fm);
         transaction.commit();
@@ -165,7 +156,7 @@ public class MainActivity extends BaseSlidingFragmentActivity implements View.On
 
     private void initView(Bundle savedInstanceState) {
         mSlidingMenu.setSecondaryMenu(R.layout.main_right_layout);
-        FragmentTransaction mFragementTransaction = getSupportFragmentManager()
+        FragmentTransaction mFragementTransaction = getFragmentManager()
                 .beginTransaction();
         Fragment mFrag = new RightFragment();
         mFragementTransaction.replace(R.id.main_right_fragment, mFrag);
@@ -178,7 +169,7 @@ public class MainActivity extends BaseSlidingFragmentActivity implements View.On
         int mScreenWidth = dm.widthPixels;// ªÒ»°∆¡ƒª∑÷±Ê¬ øÌ∂»
         // TODO Auto-generated method stub
         setBehindContentView(R.layout.main_left_layout);// …Ë÷√◊Û≤Àµ•
-        FragmentTransaction mFragementTransaction = getSupportFragmentManager()
+        FragmentTransaction mFragementTransaction = getFragmentManager()
                 .beginTransaction();
         Fragment mFrag = new LeftFragment();
         mFragementTransaction.replace(R.id.main_left_fragment, mFrag);
