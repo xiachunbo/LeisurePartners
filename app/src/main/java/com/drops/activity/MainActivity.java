@@ -1,12 +1,14 @@
 package com.drops.activity;
 
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.DisplayMetrics;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -45,6 +47,13 @@ public class MainActivity extends BaseSlidingFragmentActivity implements View.On
         initView();
         initFragment();//方法一，默认第一fragment
         initView(savedInstanceState);
+        if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.KITKAT) {
+
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);//透明状态栏
+
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);//透明底部导航栏
+
+        }
     }
 
     private void initView() {
