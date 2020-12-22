@@ -52,7 +52,8 @@ public class HomeActivity extends Activity {
         //设置底部数据
         DataTestUtils.getBottomData(mObjects);
         HomeAdapter adapter = new HomeAdapter(this, mObjects);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView = (RecyclerView) this.findViewById(R.id.recycler);
+        recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
         recyclerView.setAdapter(adapter);
     }
 }
