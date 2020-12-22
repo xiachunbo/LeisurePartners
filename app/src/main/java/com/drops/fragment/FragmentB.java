@@ -24,7 +24,7 @@ public class FragmentB extends Fragment {
     private View view;
     private WebView webView;
     private WebSettings webSettings;
-    private String url = "http://120.27.227.143:8082/app/wuliao";
+    private String url = "http://192.168.50.251:8082/app/index";
     // 单例(方法二)
     private static FragmentB fa;
 

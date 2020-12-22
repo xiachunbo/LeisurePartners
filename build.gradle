@@ -29,3 +29,50 @@ allprojects {
     }
 }
 
+// gradle配置项目环境，
+// 切换环境方式或打包Apk方式：
+//      1.使用Build Variants视图下app的Build Variant选项
+//          开发环境(devDebug/devRelease)
+//          测试环境(offlineDebug/offlineRelease)
+//          生产环境(onlineDebug/onlineRelease)
+//      2.gradle命令
+ext {
+    MINSDK_VERSION = 15//最小支持SDK
+    TARGETSDK_VERSION = 25//最大支持SDK
+    VERSION_NAME = "1.5.0"//项目版本名称
+    ONLINE_NUM = 00//生产环境版本序号(公司内部测试使用)
+    TEST_NUM = 05//测试环境版本序号(公司内部测试使用)
+    DEV_NUM = 15//开发环境版本序号(公司内部测试使用)
+}
+//生产环境版本号
+def getVersionName() {
+    int online_num = rootProject.ext.ONLINE_NUM
+    if (online_num > 0) {
+        return String.format("%s.%s", rootProject.ext.VERSION_NAME, rootProject.ext.ONLINE_NUM)
+    } else {
+        return rootProject.ext.VERSION_NAME
+    }
+}
+//测试环境版本号
+def getTestVersionName() {
+    int test_num = rootProject.ext.TEST_NUM
+    if (test_num > 0) {
+        return String.format("%s.%s", rootProject.ext.VERSION_NAME, rootProject.ext.TEST_NUM)
+    } else {
+        return rootProject.ext.VERSION_NAME
+    }
+}
+//开发环境版本号
+def getDevVersionName() {
+    int dev_num = rootProject.ext.DEV_NUM
+    if (dev_num > 0) {
+        return String.format("%s.%s", rootProject.ext.VERSION_NAME, rootProject.ext.DEV_NUM)
+    } else {
+        return rootProject.ext.VERSION_NAME
+    }
+}
+//git提交次数
+static int gitVersionCode() {
+    def count = "git rev-list HEAD --count".execute().text.trim()
+    return count.isInteger() ? count.toInteger() : 0
+}
