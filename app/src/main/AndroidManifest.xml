@@ -43,6 +43,10 @@
             android:name="com.drops.activity.PasswordActivity"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Light.NoTitleBar" />
+        <activity
+            android:name="com.drops.activity.TestTabActivity"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.AppCompat.Light" />
     </application>
 
 </manifest>
