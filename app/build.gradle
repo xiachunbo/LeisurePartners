@@ -34,7 +34,7 @@ android {
             //是否输出日志
             buildConfigField 'boolean', 'IS_DEBUG', 'false'
             //对应服务器地址
-            buildConfigField 'String', 'SERVER_URL', '"http://www.debug.com"'
+            buildConfigField 'String', 'SERVER_URL', '"http://www.lovebobo.cn"'
         }
         //测试环境
         Test {
@@ -42,7 +42,7 @@ android {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             buildConfigField 'boolean', 'IS_DEBUG', 'false'
-            buildConfigField 'String', 'SERVER_URL', '"http://www.test.com"'
+            buildConfigField 'String', 'SERVER_URL', '"http://www.lovebobo.cn"'
         }
         //生产环境
         release {
@@ -50,7 +50,7 @@ android {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             buildConfigField 'boolean', 'IS_DEBUG', 'false'
-            buildConfigField 'String', 'SERVER_URL', '"http://www.release.com"'
+            buildConfigField 'String', 'SERVER_URL', '"http://www.lovebobo.cn"'
         }
     }
     android.applicationVariants.all { variant ->
