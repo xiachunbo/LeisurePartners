@@ -12,14 +12,84 @@ android {
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
-
+        flavorDimensions "versionCode"//多环境打包设置
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
-
-    buildTypes {
+    //自定义生成的apk的地址及名称
+    def apkName;
+    signingConfigs {
         release {
+            storeFile file('version.jks')
+            storePassword '123456'
+            keyAlias 'version'
+            keyPassword '123456'
+        }
+    }
+    buildTypes {
+        //开发环境
+        debug {
+            apkName = "version.apk"
+            //是否混淆,开发是选否
             minifyEnabled false
+            //是否输出日志
+            buildConfigField 'boolean', 'IS_DEBUG', 'false'
+            //对应服务器地址
+            buildConfigField 'String', 'SERVER_URL', '"http://www.debug.com"'
+        }
+        //测试环境
+        Test {
+            apkName = "version.apk"
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField 'boolean', 'IS_DEBUG', 'false'
+            buildConfigField 'String', 'SERVER_URL', '"http://www.test.com"'
+        }
+        //生产环境
+        release {
+            apkName = "version.apk"
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField 'boolean', 'IS_DEBUG', 'false'
+            buildConfigField 'String', 'SERVER_URL', '"http://www.release.com"'
+        }
+    }
+    android.applicationVariants.all { variant ->
+        variant.outputs.all {
+            if (outputFileName.endsWith('.apk')) {
+                //这里使用之前定义apk文件名称
+                outputFileName = apkName
+            }
+        }
+    }
+    //*******************打包设置结束
+    //*******************多环境打包设置开始
+    productFlavors {
+        //开发环境
+        develop {
+            buildConfigField "int", "ENV_TYPE", "1"
+            applicationId 'com.admin.versiondemo'
+            manifestPlaceholders = [
+                    app_name: "开发环境",
+                    app_icon: "@drawable/logo"
+            ]
+        }
+        //测试环境
+        check {
+            buildConfigField "int", "ENV_TYPE", "2"
+            applicationId 'com.admin.versiondemo'
+            manifestPlaceholders = [
+                    app_name: "测试环境",
+                    app_icon: "@drawable/logo"
+            ]
+        }
+        //生产环境
+        product {
+            buildConfigField "int", "ENV_TYPE", "3"
+            applicationId 'com.admin.versiondemo'
+            manifestPlaceholders = [
+                    app_name: "生产环境",
+                    app_icon: "@drawable/logo"
+            ]
         }
     }
     compileOptions {
