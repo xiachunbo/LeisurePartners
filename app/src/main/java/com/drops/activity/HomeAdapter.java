@@ -1,16 +1,23 @@
 package com.drops.activity;
 
+import android.app.FragmentManager;
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.drops.fragment.FragmentA;
+import com.drops.fragment.FragmentB;
 import com.drops.util.GlideImageLoader;
 import com.drops.util.HomeDataBean;
 import com.lovebobo.webview.R;
@@ -154,6 +161,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         holder.banner.setOnBannerListener(new OnBannerListener() {
             @Override
             public void OnBannerClick(int position) {
+                Log.d("OnBannerClick--->",position+"");
             }
         });
         //banner设置方法全部调用完毕时最后调用
@@ -203,6 +211,31 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         holder.brandThirdTitle.setText(thirdTitle);
         holder.brandFifthLable.setText(fifthLable);
         holder.brandSixthLable.setText(sixthLable);
+
+        //点击事件
+        holder.brandPicFirst.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                //重点
+                //FragmentManager manager = ((AppCompatActivity)context).getFragmentManager();
+                //manager.beginTransaction().replace(FragmentA.getFragmentA().getId(), FragmentB.getFragmentB()).commit();
+                //View myRadioGroup = ((AppCompatActivity)context).findViewById(R.id.radioGroup);
+                //myRadioGroup.setVisibility(View.INVISIBLE);
+                Intent intent;
+                intent = new Intent(context, RegisterActivity.class);
+                context.startActivity(intent);
+                Log.d("brandFifthLable--->",v+"");
+            }
+        });
+        //点击事件
+        holder.brandPicSecond.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Log.d("brandPicSecond--->",v+"");
+            }
+        });
     }
 
     class BrandHolder extends RecyclerView.ViewHolder {
